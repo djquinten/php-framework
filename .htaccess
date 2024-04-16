@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteRule ^(.*)$ /public/index.php [L]
+
+    RewriteCond %{SCRIPT_FILENAME} !-d
+    RewriteCond %{SCRIPT_FILENAME} !-f
+    RewriteRule ^(.*)$ ./public/index.php?q=$1 [L,QSA]
+</IfModule>

@@ -1,0 +1,122 @@
+#sidebar {
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    width: 300px;
+    padding-top: 20px;
+    background-color: #12374C;
+    color: white;
+    transition: 0.5s;
+}
+
+main {
+    margin-left: 300px;
+    padding: 20px;
+    height: 100vh;
+}
+
+#sidebar a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    transition: 0.3s;
+}
+
+#sidebar a:hover, #sidebar a.active {
+    background-color: #174b6c;
+    color: white;
+}
+
+#content {
+    top: 0;
+    margin-left: 275px;
+    padding: 20px;
+    height: 100vh;
+}
+
+#sidebarToggle {
+    display: none;
+}
+
+#sidebarToggle main {
+    margin-left: 0;
+}
+
+@media (max-width: 992px) {
+    main {
+        margin-left: 0;
+    }
+
+    #sidebar {
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    #sidebar a {
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    #content {
+        margin-left: 0;
+    }
+
+    #sidebarToggle {
+        display: block;
+        margin: auto;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        height: 7vh;
+        width: 7vh;
+        border: none;
+        background-color: #12374C;
+        border-radius: 0 0 0 10px;
+        transition: 0.5s;
+    }
+
+    #sidebarToggle .bar1, #sidebarToggle .bar2, #sidebarToggle .bar3 {
+        width: 35px;
+        height: 4px;
+        background-color: #fff;
+        margin: 6px auto;
+        transition: 0.4s;
+        border-radius: 999px;
+    }
+
+    #sidebarToggle .bar1 {
+        transform: translate(0, 10px) rotate(-45deg);
+    }
+
+    #sidebarToggle .bar2 {
+        opacity: 0;
+    }
+
+    #sidebarToggle .bar3 {
+        transform: translate(0, -10px) rotate(45deg);
+    }
+
+    .sidebar-hidden {
+        width: 0 !important;
+    }
+
+    .sidebar-hidden p, .sidebar-hidden a {
+        display: none !important;
+    }
+
+    .sidebar-hidden + #sidebarToggle .bar1 {
+        transform: translate(0, 0px) rotate(0deg);
+    }
+
+    .sidebar-hidden + #sidebarToggle .bar2 {
+        opacity: 1;
+    }
+
+    .sidebar-hidden + #sidebarToggle .bar3 {
+        transform: translate(0, 0px) rotate(0deg);
+    }
+}
