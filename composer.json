@@ -1,5 +1,14 @@
 {
     "require": {
         "twig/twig": "^3.8"
+    },
+    "autoload": {
+        "classmap": [
+            "App/",
+            "src/"
+        ],
+        "files": [
+            "src/Foundation/helper.php"
+        ]
     }
 }
