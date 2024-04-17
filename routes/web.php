@@ -11,6 +11,6 @@ declare(strict_types=1);
 //    Router::get('/home', [HomeController::class, 'show']);
 //});
 
-use src\Foundation\Routing\Route;
+use Src\Foundation\Routing\Route;
 
 Route::get('/', 'App\\Http\\Controllers\\HomeController@show');

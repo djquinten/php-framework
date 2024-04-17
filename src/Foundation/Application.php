@@ -1,9 +1,9 @@
 <?php
 
-namespace src\Foundation;
+namespace Src\Foundation;
 
-use src\Foundation\Configuration\ApplicationBuilder;
-use src\Foundation\Routing\Kernel;
+use Src\Foundation\Configuration\ApplicationBuilder;
+use Src\Foundation\Routing\Kernel;
 
 class Application
 {

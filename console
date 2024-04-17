@@ -3,6 +3,6 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use src\Console\Kernel;
+use Src\Console\Kernel;
 
 (new Kernel)->handleCommand();

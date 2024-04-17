@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
 class Controller
 {

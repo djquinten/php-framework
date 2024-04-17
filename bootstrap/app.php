@@ -1,6 +1,6 @@
 <?php
 
-use src\Foundation\Application;
+use Src\Foundation\Application;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(

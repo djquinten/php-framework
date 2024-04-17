@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Foundation\Routing;
+namespace Src\Foundation\Routing;
 
 class RouteRegister
 {

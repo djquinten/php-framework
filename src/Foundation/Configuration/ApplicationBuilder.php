@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Foundation\Configuration;
+namespace Src\Foundation\Configuration;
 
-use src\Foundation\Application;
+use Src\Foundation\Application;
 
 class ApplicationBuilder
 {

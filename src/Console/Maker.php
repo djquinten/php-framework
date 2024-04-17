@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Console;
+namespace Src\Console;
 
 class Maker
 {
