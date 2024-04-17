@@ -4,29 +4,24 @@ namespace Src\Foundation\Routing;
 
 class Route
 {
-    private static function createRoute(
-        string $method,
-        string $uri,
-        string $action
-    ): void
+    private static function createRoute(string $method, string $uri, string|array|callable $action, array $params): RouteRegister
     {
-        $route = new RouteRegister($method, $uri, $action);
-        $route->register();
+        // $route = new RouteRegister($method, $uri, $action, $params);
+        // $route->register();
+        return new RouteRegister($method, $uri, $action, $params);
     }
 
-    public static function get(
-        string $uri,
-        string $action
-    ): void
+    public static function get(string $uri, string|array|callable $action, array $params = []): RouteRegister
     {
-        self::createRoute("GET", $uri, $action);
+        return self::createRoute("GET", $uri, $action, $params);
     }
 
     public static function post(
         string $uri,
-        string $action
-    ): void
+        string $action,
+        array $params = [],
+    ): RouteRegister
     {
-        self::createRoute("POST", $uri, $action);
+        return self::createRoute("POST", $uri, $action, $params);
     }
 }

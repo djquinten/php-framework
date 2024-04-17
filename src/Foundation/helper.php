@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Src\Foundation\Session\SessionHandler;
 
 if (! function_exists('view')) {
     function view(string $view, array $params = []): void
@@ -18,5 +19,12 @@ if (! function_exists('view')) {
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+}
+
+if (! function_exists('session')) {
+    function session(): SessionHandler
+    {
+        return new SessionHandler();
     }
 }

@@ -11,6 +11,15 @@ declare(strict_types=1);
 //    Router::get('/home', [HomeController::class, 'show']);
 //});
 
+use App\Http\Controllers\HomeController;
 use Src\Foundation\Routing\Route;
 
 Route::get('/', 'App\\Http\\Controllers\\HomeController@show');
+
+Route::get('/home', [HomeController::class, 'index'])
+    ->name('home')
+    ->middleware('auth');
+
+Route::get('/about', function() {
+    echo 'about';
+});

@@ -22,6 +22,9 @@ class ApplicationBuilder
     public function withMiddleware(
         ?callable $middleware = null,
     ): static {
+        if ($middleware) {
+            $middleware(new Middleware());
+        }
         return $this;
     }
 
