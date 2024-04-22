@@ -6,27 +6,7 @@ use Src\Http\Request;
 
 class Kernel
 {
-    public static array $routes = [];
-
     public static array $middleware = [];
-
-    public static function addRoute(
-        string $method,
-        string $uri,
-        string|array|callable $action,
-        array $parameters,
-        // ?string $name,
-        string|array|null $middleware = null
-    ): void
-    {
-        self::$routes[$method][$uri] = [
-            'method' => $method,
-            'uri' => $uri,
-            'action' => $action,
-            'parameters'=> $parameters,
-            'middleware' => $middleware,
-        ];
-    }
 
     public static function handleRoute(): void
     {
@@ -34,34 +14,32 @@ class Kernel
 
         if (array_key_exists(Request::uri(), $routes)) {
             $route = $routes[Request::uri()];
-
-            var_dump($route['middleware']);
-
+            self::handleMiddleware($route->getMiddleware());
             self::callMethod($route);
         }
     }
 
-    protected static function callMethod(array $route)
+    protected static function callMethod(RouteRegister $route)
     {
-        switch (gettype($route["action"])) {
+        switch (gettype($route->action)) {
             case "string":
-                $action = explode('@', $route['action']);
+                $action = explode('@', $route->action);
                 (new $action[0])->{$action[1]}(
                     new Request,
-                    $route['parameters']
+                    $route->parameters,
                 );
                 break;
             case 'array':
-                $action = $route['action'];
+                $action = $route->action;
                 (new $action[0])->{$action[1]}(
                     new Request,
-                    $route['parameters']
+                    $route->parameters,
                 );
                 break;
             case 'object':
-                $route['action'](
+                ($route->action)(
                     new Request,
-                    $route['parameters']
+                    $route->parameters,
                 );
                 break;
             default:
@@ -70,16 +48,19 @@ class Kernel
         }
     }
 
-    protected static function handleMiddleware()
+    protected static function handleMiddleware(string | array $middleware): void
     {
+        $middlewares = is_array($middleware) ? $middleware : [$middleware];
+
         $pipe = array_reduce(
-            array_reverse(self::$middleware),
+            array_reverse($middlewares),
             function ($stack, $middleware) {
                 return function (Request $request) use ($stack, $middleware) {
-                    return (new $middleware)->handle($request, $stack);
+                    return (new Kernel::$middleware[$middleware])->handle($request, $stack);
                 };
             },
-            function () {}
+            function () {
+            },
         );
 
         $pipe(new Request());

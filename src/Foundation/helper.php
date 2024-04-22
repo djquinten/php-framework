@@ -12,7 +12,7 @@ if (! function_exists('view')) {
         $view = str_replace('.', '/', $view);
 
         $loader = new FilesystemLoader("../resources/views");
-        $twig = new Environment($loader);
+        $twig   = new Environment($loader);
 
         try {
             $twig->display($view . '.twig', $params);

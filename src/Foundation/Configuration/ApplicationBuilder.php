@@ -3,7 +3,6 @@
 namespace Src\Foundation\Configuration;
 
 use Src\Foundation\Application;
-use Src\Foundation\Routing\Route;
 
 class ApplicationBuilder
 {

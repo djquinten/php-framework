@@ -5,7 +5,7 @@ use Src\Middleware\Test;
 use Src\Foundation\Application;
 use Src\Foundation\Configuration\Middleware;
 
-return Application::configure(basePath: dirname(__DIR__))
+return Application::configure()
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
     )
