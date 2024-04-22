@@ -4,6 +4,7 @@ namespace Src\Foundation;
 
 use Src\Foundation\Configuration\ApplicationBuilder;
 use Src\Foundation\Routing\Kernel;
+use Src\Foundation\Routing\Route;
 
 class Application
 {

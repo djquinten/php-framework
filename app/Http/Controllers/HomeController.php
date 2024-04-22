@@ -10,12 +10,13 @@ class HomeController extends Controller
 {
     public function show(Request $request): void
     {
-        echo $request->uri();
-        // view('welcome');
+        // echo $request->uri();
+        view('welcome');
     }
 
     public function index(Request $request): void
     {
-        echo $request->uri();
+        // echo $request->uri();
+        view('dashboard');
     }
 }

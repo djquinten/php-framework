@@ -4,8 +4,8 @@ namespace Src\Foundation\Routing;
 
 class RouteRegister
 {
-    private ?string $name;
-    private null|string|array $middleware;
+    // private ?string $name;
+    public null|string|array $middleware;
 
     public function __construct(
         private string $method,
@@ -14,13 +14,13 @@ class RouteRegister
         private array $parameters = [],
     ) { }
 
-    public function name(string $name): RouteRegister
-    {
-        $this->name = $name;
-        return $this;
-    }
+    // public function name(string $name): RouteRegister
+    // {
+    //     $this->name = $name;
+    //     return $this;
+    // }
 
-    public function middleware (string $middleware): RouteRegister
+    public function middleware(string|array $middleware): RouteRegister
     {
         $this->middleware = $middleware;
         return $this;
@@ -33,7 +33,8 @@ class RouteRegister
             uri:        $this->uri,
             action:     $this->action,
             parameters: $this->parameters,
-            name:       $this->name,
+            // name:       $this->name,
+            middleware: $this->middleware,
         );
     }
 }

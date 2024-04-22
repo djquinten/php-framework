@@ -3,13 +3,13 @@
 namespace Src\Foundation\Configuration;
 
 use Src\Foundation\Application;
+use Src\Foundation\Routing\Route;
 
 class ApplicationBuilder
 {
     public function __construct(
         protected Application $app,
-    ) {
-    }
+    ) { }
 
     public function withRouting(
         string $web,

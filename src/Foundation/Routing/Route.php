@@ -4,11 +4,16 @@ namespace Src\Foundation\Routing;
 
 class Route
 {
+    public static $routes = [];
+
     private static function createRoute(string $method, string $uri, string|array|callable $action, array $params): RouteRegister
     {
-        // $route = new RouteRegister($method, $uri, $action, $params);
-        // $route->register();
-        return new RouteRegister($method, $uri, $action, $params);
+    //     $route = new RouteRegister($method, $uri, $action, $params);
+    //     $route->register();
+    //     return $route;
+        // return new RouteRegister($method, $uri, $action, $params);
+
+        return self::$routes[] = (new RouteRegister($method, $uri, $action, $params));
     }
 
     public static function get(string $uri, string|array|callable $action, array $params = []): RouteRegister

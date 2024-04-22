@@ -17,9 +17,12 @@ use Src\Foundation\Routing\Route;
 Route::get('/', 'App\\Http\\Controllers\\HomeController@show');
 
 Route::get('/home', [HomeController::class, 'index'])
-    ->name('home')
     ->middleware('auth');
 
 Route::get('/about', function() {
     echo 'about';
+});
+
+Route::get('/login', function() {
+    echo 'login';
 });
