@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Foundation\Routing;
 
 use Src\Http\Request;
@@ -8,39 +10,38 @@ class Kernel
 {
     public static array $middleware = [];
 
-    public static function handleRoute(): void
+    public static function handleRoute(Request $request): void
     {
-        $routes = Route::$routes[Request::method()] ?? [];
+        $routes = Route::$routes[$request::method()] ?? [];
 
-        if (array_key_exists(Request::uri(), $routes)) {
-            $route = $routes[Request::uri()];
+        if (array_key_exists($request::uri(), $routes)) {
+            $route = $routes[$request::uri()];
             self::handleMiddleware($route->getMiddleware());
-            self::callMethod($route);
+            self::callMethod($route, $request);
         }
     }
 
-    protected static function callMethod(RouteRegister $route)
+    protected static function callMethod(RouteRegister $route, Request $request): void
     {
         switch (gettype($route->action)) {
             case "string":
                 $action = explode('@', $route->action);
-                (new $action[0])->{$action[1]}(
-                    new Request,
-                    $route->parameters,
-                );
+                (new $action[0])->{$action[1]}(...(new Kernel)
+                    ->validateParameters($request, $action, $route->parameters));
                 break;
             case 'array':
                 $action = $route->action;
-                (new $action[0])->{$action[1]}(
-                    new Request,
-                    $route->parameters,
-                );
+                (new $action[0])->{$action[1]}(...(new Kernel)
+                    ->validateParameters($request, $action, $route->parameters));
                 break;
             case 'object':
-                ($route->action)(
-                    new Request,
-                    $route->parameters,
-                );
+                $function = new \ReflectionFunction($route->action);
+
+                if ($function->getParameters()[0]->getType()->getName() === 'Src\Http\Request') {
+                    ($route->action)($request, ...$route->parameters);
+                    break;
+                }
+                ($route->action)(...$route->parameters);
                 break;
             default:
                 echo "Invalid route action type.";
@@ -59,10 +60,19 @@ class Kernel
                     return (new Kernel::$middleware[$middleware])->handle($request, $stack);
                 };
             },
-            function () {
-            },
+            (fn ($request) => $request)
         );
 
         $pipe(new Request());
+    }
+
+    protected function validateParameters(Request $request, array $action, array $methodParameters): array
+    {
+        $method = new \ReflectionMethod(new $action[0], $action[1]);
+
+        if ($method->getParameters()[0]->getType()->getName() === 'Src\Http\Request') {
+            return array_merge([$request], $methodParameters);
+        }
+        return $methodParameters;
     }
 }
