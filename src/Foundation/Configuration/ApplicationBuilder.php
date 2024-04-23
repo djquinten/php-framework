@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Foundation\Configuration;
 
 use Src\Foundation\Application;
@@ -8,7 +10,8 @@ class ApplicationBuilder
 {
     public function __construct(
         protected Application $app,
-    ) { }
+    ) {
+    }
 
     public function withRouting(
         string $web,

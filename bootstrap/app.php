@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Src\Middleware\Auth;
 use Src\Middleware\Test;
 use Src\Foundation\Application;

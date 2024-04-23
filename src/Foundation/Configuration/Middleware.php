@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Foundation\Configuration;
 
 use Src\Foundation\Routing\Kernel;
@@ -7,7 +9,7 @@ use Src\Middleware\MiddlewareInterface;
 
 class Middleware
 {
-    public static $middleware = [];
+    public static array $middleware = [];
 
     public function append(
         array | string $middleware,

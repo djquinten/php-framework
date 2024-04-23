@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Foundation\Routing;
 
 use Src\Http\Request;

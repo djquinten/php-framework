@@ -1,8 +1,10 @@
 <?= "<?php\n" ?>
 
-namespace <?= $namespace; ?>;
+declare(strict_types=1);
 
-class <?= $className; ?>
+namespace <?= $namespace; // @phpstan-ignore-line ?>;
+
+class <?= $className; // @phpstan-ignore-line ?>
 {
     //
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Middleware;
 
 use Closure;
@@ -11,7 +13,8 @@ class Auth implements MiddlewareInterface
     public function handle(Request $request, Closure $next)
     {
         if ($_SESSION['user'] == null) {
-            return header('Location: /login');
+            header('Location: /login');
+            return false;
         }
 
         return $next($request);

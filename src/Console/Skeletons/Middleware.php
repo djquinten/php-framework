@@ -1,12 +1,14 @@
 <?= "<?php\n" ?>
 
-namespace <?= $namespace; ?>;
+declare(strict_types=1);
+
+namespace <?= $namespace; // @phpstan-ignore-line ?>;
 
 use Closure;
 use Src\Http\Request;
 use Src\Middleware\MiddlewareInterface;
 
-class <?= $className; ?> implements MiddlewareInterface
+class <?= $className; // @phpstan-ignore-line ?> implements MiddlewareInterface
 {
     public function handle(Request $request, Closure $next)
     {
