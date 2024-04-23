@@ -37,7 +37,7 @@ class Kernel
             case 'object':
                 $function = new \ReflectionFunction($route->action);
 
-                if ($function->getParameters()[0]->getType()->getName() === 'Src\Http\Request') {
+                if (isset($function->getParameters()[0]) ?? $function->getParameters()[0]->getType()->getName() === 'Src\Http\Request') {
                     ($route->action)($request, ...$route->parameters);
                     break;
                 }
