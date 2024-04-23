@@ -3,7 +3,6 @@
 namespace <?= $namespace; ?>;
 
 class <?= $className; ?>
-
 {
     //
 }
