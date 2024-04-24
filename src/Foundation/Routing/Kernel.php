@@ -18,7 +18,10 @@ class Kernel
             $route = $routes[$request::uri()];
             self::handleMiddleware($route->getMiddleware());
             self::callMethod($route, $request);
+            return;
         }
+
+        echo "404";
     }
 
     protected static function callMethod(RouteRegister $route, Request $request): void
