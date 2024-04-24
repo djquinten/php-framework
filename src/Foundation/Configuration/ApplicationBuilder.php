@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Foundation\Configuration;
 
 use Src\Foundation\Application;
@@ -22,6 +24,9 @@ class ApplicationBuilder
     public function withMiddleware(
         ?callable $middleware = null,
     ): static {
+        if ($middleware) {
+            $middleware(new Middleware());
+        }
         return $this;
     }
 

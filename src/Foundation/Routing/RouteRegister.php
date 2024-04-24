@@ -1,18 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Src\Foundation\Routing;
 
 class RouteRegister
 {
+    public null | string | array $middleware;
+
     public function __construct(
         private string $method,
         private string $uri,
-        private string $action
+        public $action,
+        public array $parameters = [],
     ) {
     }
 
-    public function register(): void
+    public function middleware(string | array $middleware): RouteRegister
     {
-        Kernel::addRoute($this->method, $this->uri, $this->action);
+        $this->middleware = $middleware;
+        return $this;
+    }
+
+    public function getMiddleware(): array | string
+    {
+        return $this->middleware ?? [];
     }
 }
