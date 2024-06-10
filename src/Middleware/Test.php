@@ -6,7 +6,7 @@ namespace Src\Middleware;
 
 use Closure;
 use Src\Http\Request;
-use Src\Middleware\MiddlewareInterface;
+use Src\Middleware\Foundation\Middleware\MiddlewareInterface;
 
 class Test implements MiddlewareInterface
 {

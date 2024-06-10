@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Middleware;
+namespace Src\Middleware\Foundation\Middleware;
 
 use Closure;
 use Src\Http\Request;
