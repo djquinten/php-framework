@@ -1,0 +1,30 @@
+# This file is created using the djquinten docker template (https://github.com/djquinten/docker-template)
+version: '3'
+
+networks:
+    php-framework:
+
+services:
+    nginx:
+        build:
+            context: ./docker
+            dockerfile: nginx.Dockerfile
+        ports:
+            - "8080:80"
+        volumes:
+            - ./docker/default.conf:/etc/nginx/conf.d/default.conf
+            - .:/var/www/html:delegated
+        depends_on:
+            - php
+        networks:
+            - php-framework
+
+    php:
+        build:
+            context: ./docker
+            dockerfile: php.Dockerfile
+        volumes:
+            - .:/var/www/html:delegated
+        networks:
+            - php-framework
+        working_dir: /var/www/html
