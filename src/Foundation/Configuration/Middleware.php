@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Foundation\Configuration;
 
 use Src\Foundation\Routing\Kernel;
-use Src\Middleware\MiddlewareInterface;
+use Src\Middleware\Foundation\Middleware\MiddlewareInterface;
 
 class Middleware
 {

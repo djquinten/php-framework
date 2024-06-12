@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Foundation\Routing;
 
+use Src\Container\ServiceContainer;
 use Src\Http\Request;
 
 class Kernel
@@ -30,21 +31,17 @@ class Kernel
             case "string":
                 $action = explode('@', $route->action);
                 (new $action[0])->{$action[1]}(...(new Kernel)
-                    ->validateParameters($request, $action, $route->parameters));
+                    ->validateParameters($action, $route->parameters));
                 break;
             case 'array':
                 $action = $route->action;
                 (new $action[0])->{$action[1]}(...(new Kernel)
-                    ->validateParameters($request, $action, $route->parameters));
+                    ->validateParameters($action, $route->parameters));
                 break;
             case 'object':
-                $function = new \ReflectionFunction($route->action);
-
-                if (isset($function->getParameters()[0]) ?? $function->getParameters()[0]->getType()->getName() === 'Src\Http\Request') {
-                    ($route->action)($request, ...$route->parameters);
-                    break;
-                }
-                ($route->action)(...$route->parameters);
+                $action = $route->action;
+                $route->action((new Kernel)
+                    ->validateParameters($action, $route->parameters));
                 break;
             default:
                 echo "Invalid route action type.";
@@ -69,13 +66,11 @@ class Kernel
         $pipe(new Request());
     }
 
-    protected function validateParameters(Request $request, array $action, array $methodParameters): array
+    protected function validateParameters(array $action, array $methodParameters): array
     {
-        $method = new \ReflectionMethod(new $action[0], $action[1]);
-
-        if ($method->getParameters()[0]->getType()->getName() === 'Src\Http\Request') {
-            return array_merge([$request], $methodParameters);
-        }
-        return $methodParameters;
+        return array_merge(
+            ServiceContainer::resolve($action[0], $action[1]),
+            $methodParameters
+        );
     }
 }
